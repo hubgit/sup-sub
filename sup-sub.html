@@ -22,13 +22,13 @@
     bottom: -0.25em;
 }
 </style>
-
 <content select="sup"></content>
 <content select="sub"></content>
 </template>
 
 <script>
-    var template = document.currentScript.ownerDocument.querySelector('template');
+    var script = document.currentScript || document._currentScript;
+    var template = script.ownerDocument.querySelector('template');
 
     document.registerElement('sup-sub', {
         prototype: Object.create(HTMLElement.prototype, {
