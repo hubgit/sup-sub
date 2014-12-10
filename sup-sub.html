@@ -1,0 +1,43 @@
+<template>
+<style scoped>
+:host {
+    display: inline-flex;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+::content sub,
+::content sup {
+    position: relative;
+    font-size: 75%;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+::content sup {
+    top: -0.6em;
+}
+
+::content sub {
+    bottom: -0.25em;
+}
+</style>
+
+<content select="sup"></content>
+<content select="sub"></content>
+</template>
+
+<script>
+    var template = document.currentScript.ownerDocument.querySelector('template');
+
+    document.registerElement('sup-sub', {
+        prototype: Object.create(HTMLElement.prototype, {
+            createdCallback: {
+                value: function() {
+                    var clone = document.importNode(template.content, true);
+                    this.createShadowRoot().appendChild(clone);
+                }
+            }
+        })
+    });
+</script>
